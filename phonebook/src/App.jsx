@@ -39,7 +39,7 @@ const Persons = ({ persons, deletePerson }) => {
   };
 
   return (
-    <>
+    <div>
       {persons.map((person) => (
         <div key={person.id}>
           <p>
@@ -48,7 +48,7 @@ const Persons = ({ persons, deletePerson }) => {
           </p>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 
@@ -115,7 +115,7 @@ const App = () => {
       const maxId = Math.max(...persons.map((person) => Number(person.id)));
       const newId = maxId + 1;
 
-       const newPerson = {
+      const newPerson = {
         name: newName,
         number: newNumber,
         id: newId.toString(),
