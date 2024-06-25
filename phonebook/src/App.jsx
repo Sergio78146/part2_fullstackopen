@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import servicio from "./servicios/servicio";
+import servicio from "C:/Users/diosd/Desktop/fullStackOpen/part3/phonebookFrontend/src/servicios/servicio.js";
 
 const Filter = ({ searchTerm, handleSearchChange }) => {
   return (
@@ -109,17 +109,18 @@ const App = () => {
             setNewName("");
             setNewNumber("");
             showMessage(`Updated ${returnedPerson.name}'s number`);
+          })
+          .catch((error) => {
+            showMessage(`Failed to update ${existingPerson.name}'s number`);
+            console.error("Error updating person:", error);
           });
       }
     } else {
-      const maxId = Math.max(...persons.map((person) => Number(person.id)));
-      const newId = maxId + 1;
-
       const newPerson = {
         name: newName,
         number: newNumber,
-        id: newId.toString(),
       };
+
       servicio
         .create(newPerson)
         .then((returnedPerson) => {
@@ -127,20 +128,32 @@ const App = () => {
           setNewName("");
           setNewNumber("");
           showMessage(`Added ${returnedPerson.name}`);
+        })
+        .catch((error) => {
+          showMessage(`Failed to add ${newPerson.name}`);
+          console.error("Error adding person:", error);
         });
     }
   };
 
-  const filteredPersons = persons.filter((person) =>
-    person.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
   const deletePerson = (id) => {
-    servicio.remove(id).then(() => {
-      setPersons(persons.filter((person) => person.id !== id));
-      showMessage("Person deleted");
-    });
+    servicio
+      .remove(id)
+      .then(() => {
+        setPersons(persons.filter((person) => person.id !== id));
+        showMessage("Person deleted");
+      })
+      .catch((error) => {
+        showMessage("Failed to delete person");
+        console.error("Error deleting person:", error);
+      });
   };
+
+  const filteredPersons = Array.isArray(persons)
+    ? persons.filter((person) =>
+        person.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   return (
     <div>
@@ -149,7 +162,7 @@ const App = () => {
         <div className="messageClass">
           <p>{message.text}</p>
         </div>
-      )}{" "}
+      )}
       <Filter searchTerm={searchTerm} handleSearchChange={handleSearchChange} />
       <h3>Add a new person</h3>
       <PersonForm

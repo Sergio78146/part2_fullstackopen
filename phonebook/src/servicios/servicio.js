@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:3001/persons';
+const baseUrl = 'http://localhost:3001/api/persons';  // Asegúrate de que la URL base sea correcta
 
 const getAll = () => {
   return axios.get(baseUrl).then(response => response.data);
@@ -20,4 +20,4 @@ const update = (id, updatedPerson) => {
   return axios.put(url, updatedPerson).then(response => response.data);
 };
 
-export default { getAll, create, remove, update};
+export default { getAll, create, remove, update };
