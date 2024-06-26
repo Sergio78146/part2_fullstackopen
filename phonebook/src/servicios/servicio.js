@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:3001/api/persons';  // Asegúrate de que la URL base sea correcta
+const baseUrl = '/api/persons';  // Asegúrate de que la URL base sea correcta
 
 const getAll = () => {
   return axios.get(baseUrl).then(response => response.data);
