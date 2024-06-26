@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import servicio from "C:/Users/diosd/Desktop/fullStackOpen/part3/phonebookFrontend/src/servicios/servicio.js";
+import servicio from "C:/Users/diosd/Desktop/fullStackOpen/part2/phonebook/src/servicios/servicio.js";
 
 const Filter = ({ searchTerm, handleSearchChange }) => {
   return (
